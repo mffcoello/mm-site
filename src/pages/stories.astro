@@ -1,0 +1,120 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="historias — mi-sitio" description="Cuéntame algo.">
+  <div class="page-header">
+    <h1>tu historia</h1>
+    <p>algo que pasó, algo que sentiste, algo que quieres que alguien sepa. puede ser cualquier cosa — larga, corta, con nombre o anónima.</p>
+  </div>
+
+  <div class="form-wrap">
+    <form name="historias" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="historias" />
+      <p class="hidden" aria-hidden="true">
+        <label>no llenes esto: <input name="bot-field" /></label>
+      </p>
+
+      <div class="field">
+        <label for="name">tu nombre <span class="optional">(opcional)</span></label>
+        <input type="text" id="name" name="name" placeholder="o déjalo en blanco" autocomplete="name" />
+      </div>
+
+      <div class="field">
+        <label for="story">la historia <span class="required">*</span></label>
+        <textarea id="story" name="story" rows="10" placeholder="escribe lo que quieras, como quieras." required></textarea>
+      </div>
+
+      <button type="submit">enviar →</button>
+    </form>
+
+    <p class="note">todo lo que llegue aquí es solo para mí. no comparto nada sin preguntar antes.</p>
+  </div>
+</Layout>
+
+<style>
+  .page-header p {
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .form-wrap {
+    max-width: 560px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hidden { display: none; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .optional {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .required { color: var(--accent); }
+
+  input[type="text"],
+  textarea {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  input[type="text"]::placeholder,
+  textarea::placeholder { color: var(--muted); opacity: .6; }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(160, 124, 90, .1);
+  }
+
+  button[type="submit"] {
+    align-self: flex-start;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--text);
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.75rem;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: opacity .15s;
+  }
+
+  button[type="submit"]:hover { opacity: .75; }
+
+  .note {
+    font-size: 0.775rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+</style>

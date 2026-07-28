@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// To add a playlist: paste a Spotify embed URL below.
+// In Spotify: right-click playlist → Share → Embed playlist → copy the src URL
+const playlists = [
+  {
+    title: "playlist",
+    src: "https://open.spotify.com/embed/playlist/4caDVqthvICQC5nqVdLXEF?utm_source=generator",
+  },
+];
+---
+
+<Layout title="Música — mi-sitio" description="Playlists y sonidos a los que sigo volviendo.">
+  <div class="page-header">
+    <h1>Música</h1>
+    <p>Playlists y sonidos a los que sigo volviendo.</p>
+  </div>
+
+  {playlists.length === 0 ? (
+    <div class="empty">
+      <p>Playlists próximamente.</p>
+      <span class="hint">Para agregar una: abre <code>src/pages/music.astro</code> y pega la URL del embed de Spotify en el arreglo de playlists.</span>
+    </div>
+  ) : (
+    <div class="stack">
+      {playlists.map(({ title, src }) => (
+        <div class="embed">
+          <p class="embed-label">{title}</p>
+          <iframe
+            src={src}
+            width="100%"
+            height="352"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+  )}
+</Layout>
+
+<style>
+  .stack { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .embed-label {
+    padding: 1rem 1.25rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 3rem 0;
+    color: var(--muted);
+  }
+
+  .empty p { font-size: 1rem; }
+
+  .hint {
+    font-size: 0.8rem;
+    opacity: .7;
+  }
+
+  code {
+    font-family: monospace;
+    background: var(--border);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+</style>

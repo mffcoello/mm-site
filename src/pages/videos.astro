@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// To add a YouTube video:
+// 1. Open the video on YouTube
+// 2. Click Share → Embed
+// 3. Copy just the video ID from the src (the part after "embed/")
+// 4. Add an entry below
+const videos: { id: string; title: string; note?: string }[] = [
+  { id: "uLIqLJHbF0s", title: "somos lo que pensamos", note: "este video lo hice hace tiempo pero todavia resuena conmigo" },
+];
+---
+
+<Layout title="videos — mi-sitio" description="Cosas de YouTube que se me quedaron.">
+  <div class="page-header">
+    <h1>videos</h1>
+    <p>cosas de youtube que se me quedaron.</p>
+  </div>
+
+  {videos.length === 0 ? (
+    <div class="empty">
+      <p>videos próximamente.</p>
+      <span class="hint">
+        Agrega IDs de YouTube al arreglo en <code>src/pages/videos.astro</code>.
+      </span>
+    </div>
+  ) : (
+    <div class="video-list">
+      {videos.map(({ id, title, note }) => (
+        <div class="video-item">
+          <div class="embed">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${id}`}
+              title={title}
+              height="400"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            />
+          </div>
+          <div class="video-meta">
+            <h2>{title}</h2>
+            {note && <p>{note}</p>}
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</Layout>
+
+<style>
+  .video-list { display: flex; flex-direction: column; gap: 2.5rem; }
+
+  .video-item { display: flex; flex-direction: column; gap: 0.875rem; }
+
+  .embed iframe {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .video-meta h2 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .video-meta p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 0.25rem;
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 3rem 0;
+    color: var(--muted);
+  }
+
+  .hint { font-size: 0.8rem; opacity: .7; }
+
+  code {
+    font-family: monospace;
+    background: var(--border);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const instagram: { permalink: string }[] = [
+  // { permalink: "https://www.instagram.com/p/POST_ID/" },
+];
+---
+
+<Layout title="mi-sitio">
+  <div class="stage">
+
+    <div class="title-wrap">
+      <h1>un rincón en el internet</h1>
+    </div>
+
+    <a href="/music"     class="nav-link pos-tl">música</a>
+    <a href="/articulos" class="nav-link pos-tr">artículos</a>
+    <a href="/videos"    class="nav-link pos-bl">videos</a>
+    <a href="/stories"   class="nav-link pos-br">tu historia</a>
+
+    <div class="deco d1"  aria-hidden="true"><span>+</span></div>
+    <div class="deco d2"  aria-hidden="true"><span>—</span></div>
+    <div class="deco d3"  aria-hidden="true"><span>×</span></div>
+    <div class="deco d4"  aria-hidden="true"><span>·</span></div>
+    <div class="deco d5"  aria-hidden="true"><span>○</span></div>
+    <div class="deco d6"  aria-hidden="true"><span>∗</span></div>
+    <div class="deco d7"  aria-hidden="true"><span>▫</span></div>
+    <div class="deco d8"  aria-hidden="true"><span>◦</span></div>
+    <div class="deco d9"  aria-hidden="true"><span>/</span></div>
+    <div class="deco d10" aria-hidden="true"><span>·</span></div>
+
+  </div>
+
+  {instagram.length > 0 && (
+    <div class="ig-section">
+      <div class="ig-grid">
+        {instagram.map(({ permalink }) => (
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink={permalink}
+            data-instgrm-version="14"
+          />
+        ))}
+      </div>
+      <script async src="//www.instagram.com/embed.js" />
+    </div>
+  )}
+</Layout>
+
+<style>
+  .stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    min-height: 78vh;
+    padding: 2rem 0;
+  }
+
+  /* ── centered title ── */
+  .title-wrap {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .title-wrap h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    max-width: 280px;
+  }
+
+  /* ── surrounding links ── */
+  .nav-link {
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    transition: opacity .2s;
+    display: flex;
+  }
+
+  .nav-link:hover { opacity: 0.5; }
+
+  .pos-tl { grid-column: 1; grid-row: 1; align-items: flex-end;   justify-content: flex-end;   padding: 0 2.5rem 2rem 0; }
+  .pos-tr { grid-column: 3; grid-row: 1; align-items: flex-end;   justify-content: flex-start; padding: 0 0 2rem 2.5rem; }
+  .pos-bl { grid-column: 1; grid-row: 3; align-items: flex-start; justify-content: flex-end;   padding: 2rem 2.5rem 0 0; }
+  .pos-br { grid-column: 3; grid-row: 3; align-items: flex-start; justify-content: flex-start; padding: 2rem 0 0 2.5rem; }
+
+  /* ── decorative artifacts ── */
+  .deco {
+    position: absolute;
+    color: var(--navy);
+    opacity: 0.45;
+    pointer-events: none;
+    user-select: none;
+    transition: translate 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: translate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .deco span { display: block; line-height: 1; }
+
+  .d1  { top: 12%;  left: 22%;  font-size: 1.6rem; rotate: -8deg; }
+  .d2  { top: 18%;  right: 20%; font-size: 1.4rem; rotate: 5deg; }
+  .d3  { top: 55%;  left: 10%;  font-size: 1.8rem; rotate: 14deg; opacity: 0.35; }
+  .d4  { top: 8%;   left: 48%;  font-size: 3rem;   opacity: 0.3; }
+  .d5  { top: 70%;  right: 12%; font-size: 1.5rem; rotate: -20deg; opacity: 0.38; }
+  .d6  { top: 80%;  left: 28%;  font-size: 1.6rem; rotate: 3deg; opacity: 0.38; }
+  .d7  { top: 40%;  left: 5%;   font-size: 1.2rem; rotate: -6deg; opacity: 0.38; }
+  .d8  { top: 35%;  right: 7%;  font-size: 2rem;   rotate: 10deg; opacity: 0.35; }
+  .d9  { bottom: 8%; left: 50%; font-size: 1.3rem; rotate: -15deg; opacity: 0.36; }
+  .d10 { top: 62%;  right: 30%; font-size: 2.8rem; opacity: 0.28; }
+
+  /* ── instagram ── */
+  .ig-section { margin-top: 1rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+  .ig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+  .ig-grid .instagram-media { margin: 0 !important; min-width: unset !important; width: 100% !important; }
+
+  @media (max-width: 640px) {
+    .stage {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      min-height: unset;
+      gap: 0;
+    }
+
+    .title-wrap { grid-column: 1; grid-row: 1; padding: 2rem 0 1.5rem; border-bottom: 1px solid var(--border); text-align: left; justify-content: flex-start; }
+    .title-wrap h1 { max-width: none; }
+
+    .pos-tl { grid-column: 1; grid-row: 2; justify-content: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .pos-tr { grid-column: 1; grid-row: 3; justify-content: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .pos-bl { grid-column: 1; grid-row: 4; justify-content: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .pos-br { grid-column: 1; grid-row: 5; justify-content: flex-start; padding: 1rem 0; }
+
+    .deco { display: none; }
+  }
+</style>
+
+<script>
+  const decos = document.querySelectorAll<HTMLElement>('.deco');
+  const RADIUS = 130;
+  const STRENGTH = 55;
+
+  document.addEventListener('mousemove', (e) => {
+    decos.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = cx - e.clientX;
+      const dy = cy - e.clientY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < RADIUS && dist > 0) {
+        const force = (RADIUS - dist) / RADIUS;
+        const tx = (dx / dist) * force * STRENGTH;
+        const ty = (dy / dist) * force * STRENGTH;
+        el.style.translate = `${tx}px ${ty}px`;
+      } else {
+        el.style.translate = '0px 0px';
+      }
+    });
+  });
+
+  document.addEventListener('mouseleave', () => {
+    decos.forEach(el => { el.style.translate = '0px 0px'; });
+  });
+</script>
